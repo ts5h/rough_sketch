@@ -1,4 +1,4 @@
-# test Scribble of Quadratic Bézier Curves
+# Scribble of Quadratic Bézier Curves
 
 Generative drawing gravitational quadratic Bézier curves as a study.
 
