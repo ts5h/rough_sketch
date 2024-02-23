@@ -34,7 +34,8 @@ export const Curve: FC = () => {
 
   const addPoint = useCallback(() => {
     const prevPoint = pointsRef.current[pointsRef.current.length - 1];
-    const longDistanceLimit = Math.min(window.innerWidth, window.innerHeight) / 2;
+    const longDistanceLimit =
+      Math.min(window.innerWidth, window.innerHeight) / 2;
     const shortDistanceLimit = Math.random() * 30;
 
     const distance =
@@ -144,7 +145,7 @@ export const Curve: FC = () => {
 
       // Display the coordinates of the point
       layerCtx.fillStyle = PRIMARY_COLOR;
-      layerCtx.font = "8px Roboto medium, sans-serif";
+      layerCtx.font = "8px Inter, sans-serif";
       layerCtx.textAlign = "left";
       layerCtx.fillText(
         `${position.x.toFixed(2)}, ${position.y.toFixed(2)}`,
