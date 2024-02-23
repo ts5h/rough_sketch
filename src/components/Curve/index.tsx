@@ -69,7 +69,7 @@ export const Curve: FC = () => {
 
     // Draw a horizontal line
     canvasCtx.strokeStyle = SECONDARY_COLOR;
-    canvasCtx.lineWidth = 0.2;
+    canvasCtx.lineWidth = 0.1;
     canvasCtx.beginPath();
     canvasCtx.moveTo(0, clearRectHeightRef.current);
     canvasCtx.lineTo(CANVAS_SIZE.width, clearRectHeightRef.current);
@@ -139,15 +139,21 @@ export const Curve: FC = () => {
 
     // Display the coordinates of the point
     layerCtx.fillStyle = PRIMARY_COLOR;
-    layerCtx.font = "9px Roboto medium, sans-serif";
+    layerCtx.font = "8px Roboto medium, sans-serif";
+    layerCtx.textAlign = "left";
     layerCtx.fillText(
       `${position.x.toFixed(2)}, ${position.y.toFixed(2)}`,
       position.x - 2,
       position.y - 5,
     );
 
-    console.log(pointsRef.current.length);
-    if (pointsRef.current.length > 50000) {
+    // Display the number of points
+    layerCtx.fillStyle = SECONDARY_COLOR;
+    layerCtx.textAlign = "right";
+    layerCtx.fillText(`${pointsRef.current.length}`, window.innerWidth - 5, window.innerHeight - 5);
+
+    // console.log(pointsRef.current.length);
+    if (pointsRef.current.length >= (isMobile ? 25000 : 50000)) {
       clearFlagRef.current = true;
       clearRectHeightRef.current = 0;
       pointsRef.current = [];
