@@ -2,6 +2,7 @@
 
 // For GitHub link
 .github {
+  background-color: rgba(variables.$background-color, 0.5);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   position: absolute;
   right: 0;
@@ -20,7 +21,7 @@
     height: 30px;
     overflow: hidden;
 
-    background: url(../../assets/icon_github.svg) no-repeat center center / 16px
+    background: url(/assets/icon_github.svg) no-repeat center center / 16px
       auto;
     text-indent: -9999px;
     text-decoration: none;
