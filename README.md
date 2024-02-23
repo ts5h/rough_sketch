@@ -2,6 +2,9 @@
 
 Generative drawing with a pencil-like touch.
 
+![capture](https://github.com/ts5h/rough_sketch/assets/1344010/57e68b70-b79d-46c9-baa9-ee4311114db5)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
