@@ -150,7 +150,11 @@ export const Curve: FC = () => {
     // Display the number of points
     layerCtx.fillStyle = SECONDARY_COLOR;
     layerCtx.textAlign = "right";
-    layerCtx.fillText(`${pointsRef.current.length}`, window.innerWidth - 5, window.innerHeight - 5);
+    layerCtx.fillText(
+      `${pointsRef.current.length}`,
+      window.innerWidth - 5,
+      window.innerHeight - 5,
+    );
 
     // console.log(pointsRef.current.length);
     if (pointsRef.current.length >= (isMobile ? 25000 : 50000)) {
