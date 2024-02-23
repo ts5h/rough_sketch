@@ -76,7 +76,7 @@ export const Curve: FC = () => {
     canvasCtx.stroke();
 
     clearRectHeightRef.current += 2;
-    if (clearRectHeightRef.current > window.innerHeight) {
+    if (clearRectHeightRef.current > window.innerHeight + 10) {
       clearFlagRef.current = false;
     }
   }, []);
