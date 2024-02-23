@@ -120,7 +120,7 @@ export const Curve: FC = () => {
 
       canvasCtx.strokeStyle =
         distance > 40 ? TRANSPARENT_COLOR : SECONDARY_COLOR;
-      canvasCtx.lineWidth = Math.random() * 2.0;
+      canvasCtx.lineWidth = Math.random() * 1.8;
       canvasCtx.lineCap = "round";
       canvasCtx.lineJoin = "round";
       canvasCtx.beginPath();
