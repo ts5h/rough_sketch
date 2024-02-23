@@ -34,7 +34,7 @@ export const Curve: FC = () => {
 
   const addPoint = useCallback(() => {
     const prevPoint = pointsRef.current[pointsRef.current.length - 1];
-    const longDistanceLimit = Math.min(window.innerWidth, window.innerHeight);
+    const longDistanceLimit = Math.min(window.innerWidth, window.innerHeight) / 2;
     const shortDistanceLimit = Math.random() * 30;
 
     const distance =
