@@ -34,10 +34,13 @@ export const Curve: FC = () => {
 
   const addPoint = useCallback(() => {
     const prevPoint = pointsRef.current[pointsRef.current.length - 1];
+    const longDistanceLimit = Math.min(window.innerWidth, window.innerHeight);
+    const shortDistanceLimit = Math.random() * 30;
+
     const distance =
-      Math.floor(Math.random() * 100) === 1
-        ? Math.random() * 400
-        : Math.random() * 20;
+      Math.floor(Math.random() * 1000) === 1
+        ? Math.random() * longDistanceLimit
+        : Math.random() * shortDistanceLimit;
     const degree = Math.random() * 360;
 
     let x = prevPoint.x + Math.cos((degree * Math.PI) / 180) * distance;
@@ -90,71 +93,74 @@ export const Curve: FC = () => {
     const layerCtx = layerRef.current?.getContext("2d");
     if (!canvasCtx || !layerCtx) return;
 
-    addPoint();
-    if (pointsRef.current.length < 3) return;
+    for (let i = 0; i < 5; i++) {
+      addPoint();
+      if (pointsRef.current.length < 3) continue;
 
-    // Canvas
-    // Draw a cubic Bezier curve
-    const prevPrevPosition = pointsRef.current[pointsRef.current.length - 3];
-    const prevPosition = pointsRef.current[pointsRef.current.length - 2];
-    const position = pointsRef.current[pointsRef.current.length - 1];
+      // Canvas
+      // Draw a cubic Bezier curve
+      const prevPrevPosition = pointsRef.current[pointsRef.current.length - 3];
+      const prevPosition = pointsRef.current[pointsRef.current.length - 2];
+      const position = pointsRef.current[pointsRef.current.length - 1];
 
-    const startPoint = {
-      x: (prevPosition.x - prevPrevPosition.x) / 2 + prevPrevPosition.x,
-      y: (prevPosition.y - prevPrevPosition.y) / 2 + prevPrevPosition.y,
-    };
+      const startPoint = {
+        x: (prevPosition.x - prevPrevPosition.x) / 2 + prevPrevPosition.x,
+        y: (prevPosition.y - prevPrevPosition.y) / 2 + prevPrevPosition.y,
+      };
 
-    const endPoint = {
-      x: (position.x - prevPosition.x) / 2 + prevPosition.x,
-      y: (position.y - prevPosition.y) / 2 + prevPosition.y,
-    };
+      const endPoint = {
+        x: (position.x - prevPosition.x) / 2 + prevPosition.x,
+        y: (position.y - prevPosition.y) / 2 + prevPosition.y,
+      };
 
-    const distance = Math.sqrt(
-      Math.pow(startPoint.x - endPoint.x, 2) +
-        Math.pow(startPoint.y - endPoint.y, 2),
-    );
+      const distance = Math.sqrt(
+        Math.pow(startPoint.x - endPoint.x, 2) +
+          Math.pow(startPoint.y - endPoint.y, 2),
+      );
 
-    canvasCtx.strokeStyle = distance > 40 ? TRANSPARENT_COLOR : SECONDARY_COLOR;
-    canvasCtx.lineWidth = Math.random() * 1.8;
-    canvasCtx.lineCap = "round";
-    canvasCtx.lineJoin = "round";
-    canvasCtx.beginPath();
-    canvasCtx.moveTo(startPoint.x, startPoint.y);
-    canvasCtx.quadraticCurveTo(
-      prevPosition.x,
-      prevPosition.y,
-      endPoint.x,
-      endPoint.y,
-    );
-    canvasCtx.stroke();
+      canvasCtx.strokeStyle =
+        distance > 40 ? TRANSPARENT_COLOR : SECONDARY_COLOR;
+      canvasCtx.lineWidth = Math.random() * 3.2;
+      canvasCtx.lineCap = "round";
+      canvasCtx.lineJoin = "round";
+      canvasCtx.beginPath();
+      canvasCtx.moveTo(startPoint.x, startPoint.y);
+      canvasCtx.quadraticCurveTo(
+        prevPosition.x,
+        prevPosition.y,
+        endPoint.x,
+        endPoint.y,
+      );
+      canvasCtx.stroke();
 
-    // Layer
-    layerCtx.clearRect(0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height);
+      // Layer
+      layerCtx.clearRect(0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height);
 
-    // Draw a point
-    layerCtx.fillStyle = "rgba(255, 102, 0, 0.6)";
-    layerCtx.beginPath();
-    layerCtx.arc(position.x, position.y, 2.5, 0, Math.PI * 2, false);
-    layerCtx.fill();
+      // Draw a point
+      layerCtx.fillStyle = "rgba(255, 102, 0, 0.6)";
+      layerCtx.beginPath();
+      layerCtx.arc(position.x, position.y, 2.5, 0, Math.PI * 2, false);
+      layerCtx.fill();
 
-    // Display the coordinates of the point
-    layerCtx.fillStyle = PRIMARY_COLOR;
-    layerCtx.font = "8px Roboto medium, sans-serif";
-    layerCtx.textAlign = "left";
-    layerCtx.fillText(
-      `${position.x.toFixed(2)}, ${position.y.toFixed(2)}`,
-      position.x - 2,
-      position.y - 5,
-    );
+      // Display the coordinates of the point
+      layerCtx.fillStyle = PRIMARY_COLOR;
+      layerCtx.font = "8px Roboto medium, sans-serif";
+      layerCtx.textAlign = "left";
+      layerCtx.fillText(
+        `${position.x.toFixed(2)}, ${position.y.toFixed(2)}`,
+        position.x - 2,
+        position.y - 5,
+      );
 
-    // Display the number of points
-    layerCtx.fillStyle = SECONDARY_COLOR;
-    layerCtx.textAlign = "right";
-    layerCtx.fillText(
-      `${pointsRef.current.length}`,
-      window.innerWidth - 5,
-      window.innerHeight - 5,
-    );
+      // Display the number of points
+      layerCtx.fillStyle = SECONDARY_COLOR;
+      layerCtx.textAlign = "right";
+      layerCtx.fillText(
+        `${pointsRef.current.length}`,
+        window.innerWidth - 5,
+        window.innerHeight - 5,
+      );
+    }
 
     // console.log(pointsRef.current.length);
     if (pointsRef.current.length >= (isMobile ? 25000 : 50000)) {
