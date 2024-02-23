@@ -1,9 +1,6 @@
-# Scribble of Quadratic Bézier Curves
+# Rough Sketch
 
-Generative drawing gravitational quadratic Bézier curves as a study.
-
-![capture](https://github.com/ts5h/quadratic_bezier_curve/assets/1344010/ebb69148-be53-4768-8695-3563654fb235)
-
+Generative drawing with a pencil-like touch.
 
 # Getting Started with Create React App
 
